@@ -12,3 +12,9 @@ class PcData:
         self.rmax  /= a
         self.rpeak /= a
         self.power /= a
+
+    def add(self, other):
+        self.cores += other.cores
+        self.rmax  += other.rmax
+        self.rpeak += other.rpeak
+        self.power += other.power

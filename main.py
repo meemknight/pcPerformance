@@ -3,7 +3,7 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 from pcData import *
 
-def extragereLuna(date):
+def medieLuna(date):
     r = requests.get('https://www.top500.org/lists/top500/' + date)
     
     if not r.ok:
@@ -36,4 +36,22 @@ def extragereLuna(date):
 
     return medie
 
-print("cpre count: ", extragereLuna("2020/11").cores)
+def medieAn(date):
+
+    medie = PcData()
+    count = 0
+
+    for i in range(1, 13):
+        luna = medieLuna(date + "/" + str(i))
+        if luna:
+            medie.add(luna)
+            count += 1
+        
+    medie.divide(count)
+    return medie
+
+medie = medieAn("2019")
+print("cpre  count: ", medie.cores)
+print("rmax  count: ", medie.rmax)
+print("rpeak count: ", medie.rpeak)
+print("power count: ", medie.power)
